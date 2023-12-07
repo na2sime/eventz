@@ -8,7 +8,9 @@
     "start:all": "docker compose up -d --build",
     "stop:all": "docker compose down",
     "start:db": "docker compose up -d mongodb --build",
+    "start:backend": "docker compose up -d backend --build",
     "stop:db": "docker compose down mongodb",
+    "stop:backend": "docker compose down backend",
     "restart:all": "docker compose down && docker compose up -d --build"
   },
   "author": "Nassime ABDIOU",

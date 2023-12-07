@@ -1,11 +1,12 @@
-FROM node:18-alpine
+FROM node:20.10.0-alpine
 
-WORKDIR /src
-COPY package.json package-lock.json /src/
-RUN npm install --production
+WORKDIR /app
 
-COPY . /src
+COPY package.json ./
 
-EXPOSE 8085
+RUN npm install && npm cache clean --force
 
-CMD ["npm", "run", "start"]
+COPY . .
+
+EXPOSE 4000
+CMD [ "npm", "run", "start" ]

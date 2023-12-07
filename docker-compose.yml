@@ -13,15 +13,15 @@ services:
     container_name: backend
     build: ./backend
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb://mongodb:27017/eventz
+      - PORT=4000
+      - JWT_SECRET=cestvraimentsecret
     ports:
-      - "8080:8080"
+      - "4000:4000"
     depends_on:
       - mongodb
-    volumes:
-      - .:/src
-    networks:
-      - node-network
+    links:
+      - mongodb
   app:
     container_name: app
     build: ./app
@@ -29,9 +29,6 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+
 volumes:
   dbdata6:
-
-networks:
-  node-network:
-    driver: bridge
