@@ -5,8 +5,8 @@ const app = express();
 const connectDatabase = require("./database/mongodb");
 const corsMiddleware = require("./middlewares/cors.middleware");
 
-const authRoutes = require("./routes/auth.routes");
-const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.route");
+const userRoutes = require("./routes/user.route");
 
 connectDatabase().then(r => console.log(r));
 

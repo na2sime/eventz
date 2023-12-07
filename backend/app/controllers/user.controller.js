@@ -1,18 +1,24 @@
+const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 
 exports.create = async (req, res) => {
-    const user = new User({
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        events: [],
-        ownEvents: []
-    });
-    user.save()
-        .then(() => res.status(201).json({message: "user created"}))
-        .catch((error) => res.status(400).json({error}));
+    bcrypt.hash(req.body.password, 10).then((hash) => {
+        const user = new User({
+            email: req.body.email,
+            username: req.body.username,
+            password: hash,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            events: [],
+            ownEvents: []
+        });
+        user.save().then(() => {
+            res.status(201).json({message: "user created"});
+        })
+            .catch((error) => {
+                res.status(400).json({error});
+            });
+    }).catch((error) => res.status(500).json({error}));
 }
 
 exports.update = async (req, res) => {

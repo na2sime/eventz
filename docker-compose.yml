@@ -22,6 +22,8 @@ services:
       - mongodb
     links:
       - mongodb
+    volumes:
+      - media:/home/node/app/media
   app:
     container_name: app
     build: ./app
@@ -32,3 +34,4 @@ services:
 
 volumes:
   dbdata6:
+  media:
