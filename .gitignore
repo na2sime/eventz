@@ -35,3 +35,21 @@ application/yarn-error.log*
 
 # Optional eslint cache
 application/.eslintcache
+
+application/android/build/*
+application/android/!/build/.npmkeep
+
+application/ios/App/build
+application/ios/App/Pods
+application/ios/App/output
+application/ios/App/App/public
+application/ios/DerivedData
+application/ios/xcuserdata
+
+# Cordova plugins for Capacitor
+application/ios/capacitor-cordova-ios-plugins
+
+# Generated Config files
+application/ios/App/App/capacitor.config.json
+application/ios/App/App/config.xml
+
