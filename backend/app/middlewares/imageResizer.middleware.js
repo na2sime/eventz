@@ -1,5 +1,14 @@
 const Jimp = require("jimp"); // Package qui permet de redimensionner les images
 
+/**
+ * Middleware function to resize an image file.
+ *
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @param {function} next - The Next function to pass control to the next middleware function.
+ *
+ * @returns {void}
+ */
 const resizeImageMiddleware = async (req, res, next) => {
     if (!req.file) {
         return next();

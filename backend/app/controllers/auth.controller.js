@@ -2,6 +2,15 @@ const jwt = require("jsonwebtoken"); //Token d'authentification
 const {compare} = require("bcrypt");
 const User = require("../models/user.model");
 
+/**
+ * Logs in the user with provided credentials.
+ *
+ * @param {string} username - The username of the user.
+ * @param {string} password - The password of the user.
+ * @returns {Promise<boolean>} - A Promise that resolves to true if the login is successful, otherwise false.
+ *
+ * @throws {Error} - If the username or password is missing or invalid.
+ */
 exports.login = (req, res, next) => {
     User.findOne({email: req.body.email})
         .then((user) => {
@@ -25,6 +34,11 @@ exports.login = (req, res, next) => {
         .catch((error) => res.status(500).json({error}));
 }
 
+/**
+ * Disconnects from the server.
+ *
+ * @returns {void}
+ */
 exports.disconnect = (req, res, next) => {
     res.status(200).json({message: "user disconnected"});
 }

@@ -1,13 +1,17 @@
 const jwt = require("jsonwebtoken"); // Package qui permet de créer et vérifier les tokens d'authentification
 
+/**
+ * Middleware function to handle authentication. Verifies the token in the authorization header and attaches the userId to the request object.
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function to be called
+ * @returns {void}
+ */
 module.exports = (req, res, next) => {
     try {
-        // Récupération du token dans le header de la requête
         const token = req.headers.authorization.split(" ")[1];
-        // Vérification du token
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
-        // Vérification de l'authentification
         req.auth = {
             userId: userId,
         };

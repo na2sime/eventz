@@ -7,6 +7,7 @@ const corsMiddleware = require("./middlewares/cors.middleware");
 
 const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
+const eventRoutes = require("./routes/event.route");
 
 connectDatabase().then(r => console.log(r));
 
@@ -21,5 +22,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 //ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/event", eventRoutes);
 
 module.exports = app;

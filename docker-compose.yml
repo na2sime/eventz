@@ -24,13 +24,6 @@ services:
       - mongodb
     volumes:
       - media:/home/node/app/media
-  app:
-    container_name: app
-    build: ./app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
 
 volumes:
   dbdata6:
