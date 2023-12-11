@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package.json ./
 
+RUN npm config set proxy http://10.31.255.65:8080
+RUN npm config set https-proxy http://10.31.255.65:8080
 RUN npm install && npm cache clean --force
 
 COPY . .

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:all": "docker compose up -d --build",
+    "start:all": "HTTP_PROXY='10.31.255.65:8080' HTTPS_PROXY='10.31.255.65:8080' docker compose up -d --build",
     "stop:all": "docker compose down",
     "start:db": "docker compose up -d mongodb --build",
     "start:backend": "docker compose up -d backend --build",
