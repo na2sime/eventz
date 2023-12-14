@@ -1,30 +1,12 @@
 import {Redirect, Route} from 'react-router-dom';
-import {
-    IonApp,
-    IonIcon,
-    IonLabel,
-    IonRouterOutlet,
-    IonTabBar,
-    IonTabButton,
-    IonTabs,
-    setupIonicReact
-} from '@ionic/react';
+import {IonApp, setupIonicReact} from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import Tab1 from './pages/home/Tab1';
 import Login from './pages/login/Login';
 import './theme/variables.css';
 import React from "react";
-import {useState, useEffect} from "react";
 // @ts-ignore
-import {useUser} from "./utils/Commons.js"
-import {
-    addCircleOutline,
-    cogOutline,
-    homeOutline,
-    listOutline,
-    personCircle,
-    personCircleOutline, ticketOutline
-} from 'ionicons/icons';
+import {useUser} from "./utils/Commons"
 // Import ionic react css
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
@@ -37,58 +19,17 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
+import MainTabs from "./MainTabs";
 
 setupIonicReact();
 
 function App() {
-    const [isConnected, setConnected] = useState<boolean>(false);
     const {connectedUser, auth, userLoading} = useUser();
     return (
         <IonApp>
             <IonReactRouter>
-                <IonTabs>
-                    <IonRouterOutlet placeholder={undefined}>
-                        <Route exact path="/home">
-                            {!connectedUser || !auth ? <Redirect to="/login"/> : <Tab1/>}
-                        </Route>
-                        <Route exact path="/signup">
-                            <Login/>
-                        </Route>
-                        <Route exact path="/login">
-                            <Login/>
-                        </Route>
-                        <Route exact path={"publish"}>
-                            <Login/>
-                        </Route>
-                        <Route exact path={"profile"}>
-                            <Login/>
-                        </Route>
-                        <Route exact path={"event/:id"}>
-                            <Login/>
-                        </Route>
-                        <Route exact path="/">
-                            <Redirect to="/home"/>
-                        </Route>
-                    </IonRouterOutlet>
-                    <IonTabBar slot="bottom">
-                        <IonTabButton tab="tab1" href="/tab1">
-                            <IonIcon icon={homeOutline}/>
-                            {/* <IonLabel>Tab 1</IonLabel> */}
-                        </IonTabButton>
-                        <IonTabButton tab="tab2" href="/tab2">
-                            <IonIcon icon={addCircleOutline}/>
-                            {/* <IonLabel>Tab 2</IonLabel> */}
-                        </IonTabButton>
-                        <IonTabButton tab="tab2" href="/tab2">
-                            <IonIcon icon={ticketOutline}/>
-                            {/* <IonLabel>Tab 2</IonLabel> */}
-                        </IonTabButton>
-                        <IonTabButton tab="tab3" href="/tab3">
-                            <IonIcon icon={personCircleOutline}/>
-                            {/* <IonLabel>Tab 3</IonLabel> */}
-                        </IonTabButton>
-                    </IonTabBar>
-                </IonTabs>
+                <Route path="/login" component={Login} exact={true}/>
+                <Route path="/" component={!connectedUser || !auth ? Login : MainTabs}/>
             </IonReactRouter>
         </IonApp>
     );
