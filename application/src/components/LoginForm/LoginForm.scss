@@ -1,7 +1,7 @@
 @import "../../assets/commons.scss";
 
 form {
-  height: 520px;
+  height: 625px;
   width: 90%;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -12,7 +12,14 @@ form {
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  padding: 0 35px;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 140px;
+    max-height: 140px;
+  }
 
   & * {
     font-family: 'Poppins', sans-serif;

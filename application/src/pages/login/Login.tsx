@@ -1,18 +1,14 @@
 import {
     IonContent,
-    IonFooter,
-    IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar,
     useIonViewDidEnter,
     useIonViewDidLeave
 } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
 import './Login.scss';
 import React from "react";
 import {hideTabBar, showTabBar} from "../../utils/Commons";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import Background from "../../components/Background/Background";
 
 const Login: React.FC = () => {
 
@@ -37,10 +33,7 @@ const Login: React.FC = () => {
     return (
         <IonPage>
             <IonContent className="ion-padding">
-                <div className="background">
-                    <div className="shape"></div>
-                    <div className="shape"></div>
-                </div>
+                <Background/>
                 <LoginForm/>
             </IonContent>
         </IonPage>
