@@ -9,16 +9,11 @@ import React from "react";
 import {hideTabBar, showTabBar} from "../../utils/Commons";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import Background from "../../components/Background/Background";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
 const Login: React.FC = () => {
 
     const [loginMode, setLoginMode] = React.useState<boolean>(true);
-    const [registerMode, setRegisterMode] = React.useState<boolean>(false);
-
-    function switchMode() {
-        setLoginMode(!loginMode);
-        setRegisterMode(!registerMode);
-    }
 
     useIonViewDidEnter(() => {
         console.log('ionViewDidEnter event fired');
@@ -34,7 +29,7 @@ const Login: React.FC = () => {
         <IonPage>
             <IonContent className="ion-padding">
                 <Background/>
-                <LoginForm/>
+                {loginMode ? <LoginForm updateMode={setLoginMode}/> : <RegisterForm updateMode={setLoginMode}/>}
             </IonContent>
         </IonPage>
     );

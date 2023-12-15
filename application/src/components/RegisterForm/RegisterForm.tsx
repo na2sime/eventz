@@ -1,14 +1,17 @@
-import "./LoginForm.scss"
+import "./RegisterForm.scss"
 import React, {JSX, useEffect, useState} from "react";
 import axios from "axios";
 import {API_ROUTES, storeInLocalStorage, useUser} from "../../utils/Commons";
 import {useHistory} from 'react-router-dom';
 
 // @ts-ignore
-export default function LoginForm({updateMode}): JSX.Element {
+export default function RegisterForm({updateMode}): JSX.Element {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUserName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [notification, setNotification] = useState({error: false, message: ''});
 
@@ -26,9 +29,9 @@ export default function LoginForm({updateMode}): JSX.Element {
         }, timeout);
     }
 
-    const signIn = async () => {
+    const signUp = async () => {
         console.log('signIn');
-        if (!email || !password) {
+        if (!email || !password || !username || !firstName || !lastName) {
             sendNotification('Veuillez remplir tous les champs', 3000);
             return;
         }
@@ -43,19 +46,24 @@ export default function LoginForm({updateMode}): JSX.Element {
             setIsLoading(true);
             const response = await axios({
                 method: 'post',
-                url: API_ROUTES.SIGN_IN,
+                url: API_ROUTES.SIGN_UP,
                 data: {
                     email,
                     password,
+                    username,
+                    firstName,
+                    lastName,
                 },
             });
             console.log('signIn response', response);
-            if (!response?.data?.token) {
+            if (response.status != 201) {
                 sendNotification('Une erreur est survenue', 3000);
-                console.log('Something went wrong during signing in: ', response);
+                console.log('Something went wrong during signup: ', response);
             } else {
-                storeInLocalStorage(response.data.token, response.data.userId);
-                history.push('/');
+                sendNotification('Inscription reussis!', 2000);
+                setTimeout(() => {
+                    updateMode(true);
+                }, 2000);
             }
         } catch (err: any) {
             sendNotification('Une erreur est survenue', 3000);
@@ -66,19 +74,18 @@ export default function LoginForm({updateMode}): JSX.Element {
         // Wait 4 secondes and set notification to empty
     };
 
-    const registerPage = () => {
-        updateMode(false);
+    const loginPage = () => {
+        updateMode(true);
     };
 
     return (
-        <div className="login-form">
+        <div className="register-form">
             <form>
-                <img className={"logo"} src={"assets/logos/text-no-background-500x500.png"} alt={"logo"}/>
-                <h3>Connexion</h3>
+                <h3>Inscription</h3>
                 <div className={"error"}>
                     {notification.error && <p className="error">{notification.message}</p>}
                 </div>
-                <label htmlFor="username">Email</label>
+                <label htmlFor="email">Email</label>
                 <input type="text" placeholder="Adresse email"
                        name="email"
                        id="email"
@@ -95,9 +102,33 @@ export default function LoginForm({updateMode}): JSX.Element {
                            setPassword(e.target.value);
                        }}/>
 
-                <button type="button" onClick={signIn}>Connexion</button>
+                <label htmlFor="userName">Pseudo</label>
+                <input type="text" placeholder="Pseudo" id="userName"
+                       name="userName"
+                       value={username}
+                       onChange={(e) => {
+                           setUserName(e.target.value);
+                       }}/>
+
+                <label htmlFor="firstName">Prenom</label>
+                <input type="text" placeholder="Prenom" id="firstName"
+                       name="firstName"
+                       value={firstName}
+                       onChange={(e) => {
+                           setFirstName(e.target.value);
+                       }}/>
+
+                <label htmlFor="lastName">Nom</label>
+                <input type="text" placeholder="Nom" id="lastName"
+                       name="lastName"
+                       value={lastName}
+                       onChange={(e) => {
+                           setLastName(e.target.value);
+                       }}/>
+
+                <button type="button" onClick={signUp}>Inscription</button>
                 <p className="forgot-password text-right">
-                    Vous n'avez pas de compte ? <a onClick={registerPage}>Créer un compte</a>
+                    Vous avez deja un compte ? <a onClick={loginPage}>Connectez vous</a>
                 </p>
             </form>
         </div>
