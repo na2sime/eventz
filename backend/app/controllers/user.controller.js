@@ -48,7 +48,7 @@ function updateUserDataFromRequestBody(user, reqBody) {
  * @returns {object} - The updated object.
  */
 exports.update = async (req, res) => {
-    const user = await User.findById(req.params.userId);
+    const user = await User.findById(req.body.userId);
     updateUserDataFromRequestBody(user, req.body);
     user.save()
         .then(() => res.status(200).json({message: "user updated"}))
@@ -66,7 +66,7 @@ exports.update = async (req, res) => {
  * @throws {Error} - If an error occurs during the query operation.
  */
 exports.findOne = async (req, res) => {
-    await User.findById(req.params.userId).then((user) => res.status(200).json(user))
+    await User.findById(req.body.userId).then((user) => res.status(200).json(user))
         .catch((error) => res.status(400).json({error}));
 }
 
@@ -77,7 +77,7 @@ exports.findOne = async (req, res) => {
  *                      otherwise rejects with an error.
  */
 exports.findByUsername = async (req, res) => {
-    await User.findOne({username: req.params.username}).then((user) => res.status(200).json(user))
+    await User.findOne({username: req.body.username}).then((user) => res.status(200).json(user))
         .catch((error) => res.status(400).json({error}));
 }
 
@@ -107,6 +107,6 @@ exports.findAll = async (req, res) => {
  * }
  */
 exports.delete = async (req, res) => {
-    await User.findByIdAndDelete(req.params.userId).then(() => res.status(200).json({message: "user deleted"}))
+    await User.findByIdAndDelete(req.body.userId).then(() => res.status(200).json({message: "user deleted"}))
         .catch((error) => res.status(400).json({error}));
 }

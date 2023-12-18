@@ -3,6 +3,7 @@ import {Redirect, Route} from "react-router-dom";
 import {addCircleOutline, homeOutline, personCircleOutline, ticketOutline} from "ionicons/icons";
 import React from "react";
 import Tab1 from "./pages/home/Tab1";
+import Account from "./pages/account/Account";
 
 const MainTabs: React.FC = () => {
     return (
@@ -11,7 +12,7 @@ const MainTabs: React.FC = () => {
                 <Redirect exact path="/" to="/home"/>
                 <Route path="/home" render={() => <Tab1/>} exact={true}/>
                 <Route path="/publish" render={() => <Tab1/>} exact={true}/>
-                <Route path="/profile" render={() => <Tab1/>} exact={true}/>
+                <Route path="/profile" render={() => <Account/>} exact={true}/>
                 <Route path="/ticket" render={() => <Tab1/>} exact={true}/>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

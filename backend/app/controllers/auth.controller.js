@@ -42,3 +42,14 @@ exports.login = (req, res, next) => {
 exports.disconnect = (req, res, next) => {
     res.status(200).json({message: "user disconnected"});
 }
+
+exports.isConnected = (req, res, next) => {
+    jwt.verify(req.headers.authorization.split(" ")[1],
+        process.env.JWT_SECRET,
+        (err, decodedToken) => {
+            if (err) {
+                return res.status(401).json({message: "unauthorized"});
+            }
+            res.status(200).json({message: "authorized"});
+        });
+}
