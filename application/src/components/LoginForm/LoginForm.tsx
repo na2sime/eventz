@@ -54,8 +54,10 @@ export default function LoginForm({updateMode}): JSX.Element {
                 sendNotification('Une erreur est survenue', 3000);
                 console.log('Something went wrong during signing in: ', response);
             } else {
+                console.log('signIn response.data', response.data);
+                console.log("connected");
                 storeInLocalStorage(response.data.token, response.data.userId);
-                history.push('/');
+                history.push('/home');
             }
         } catch (err: any) {
             sendNotification('Une erreur est survenue', 3000);
@@ -92,6 +94,7 @@ export default function LoginForm({updateMode}): JSX.Element {
                        name="password"
                        value={password}
                        onChange={(e) => {
+                           e.preventDefault();
                            setPassword(e.target.value);
                        }}/>
 

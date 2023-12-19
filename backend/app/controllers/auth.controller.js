@@ -44,12 +44,15 @@ exports.disconnect = (req, res, next) => {
 }
 
 exports.isConnected = (req, res, next) => {
-    jwt.verify(req.headers.authorization.split(" ")[1],
-        process.env.JWT_SECRET,
-        (err, decodedToken) => {
-            if (err) {
-                return res.status(401).json({message: "unauthorized"});
-            }
-            res.status(200).json({message: "authorized"});
-        });
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
+        req.auth = {
+            userId: userId,
+        };
+        res.status(200).json({isConnected: true});
+    } catch (error) {
+        res.status(401).json({error});
+    }
 }
