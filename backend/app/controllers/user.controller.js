@@ -57,16 +57,13 @@ exports.update = async (req, res) => {
 }
 
 /**
- * Finds a single entry in a collection based on the given query.
- *
- * @param {Object} query - The query object to find the entry.
- * @param {Object} options - Additional options for the query (e.g., sort, limit).
- * @returns {Promise<Object|null>} - A promise that resolves with the found entry or null if not found.
- *
- * @throws {Error} - If an error occurs during the query operation.
+ * Retrieves a user by their id from the database.
+ * @param {string} id - The id of the user to retrieve.
+ * @returns {Promise} - A promise that resolves with the user object if found,
+ *                      otherwise rejects with an error.
  */
 exports.findOne = async (req, res) => {
-    await User.findById(req.body.userId).then((user) => res.status(200).json(user))
+    await User.findById(req.params.id).then((user) => res.status(200).json(user))
         .catch((error) => res.status(400).json({error}));
 }
 

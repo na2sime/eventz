@@ -20,7 +20,6 @@ const Account: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
-                    <Background/>
                     <IonToolbar>
                         <IonTitle size="large">Profile</IonTitle>
                     </IonToolbar>

@@ -3,6 +3,7 @@ import React, {JSX, useEffect, useState} from "react";
 import axios from "axios";
 import {API_ROUTES, storeInLocalStorage, useUser} from "../../utils/Commons";
 import {useHistory} from 'react-router-dom';
+import {useIonRouter} from "@ionic/react";
 
 // @ts-ignore
 export default function LoginForm({updateMode}): JSX.Element {
@@ -11,6 +12,7 @@ export default function LoginForm({updateMode}): JSX.Element {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [notification, setNotification] = useState({error: false, message: ''});
+    const router = useIonRouter();
 
     const {connectedUser, auth, userLoading} = useUser();
     useEffect(() => {
@@ -57,7 +59,7 @@ export default function LoginForm({updateMode}): JSX.Element {
                 console.log('signIn response.data', response.data);
                 console.log("connected");
                 storeInLocalStorage(response.data.token, response.data.userId);
-                history.push('/home');
+                router.push('/home', 'root', 'replace');
             }
         } catch (err: any) {
             sendNotification('Une erreur est survenue', 3000);

@@ -1,1 +1,6 @@
 @import "../../assets/commons.scss";
+
+ion-thumbnail {
+  --size: 32px;
+  --border-radius: 14px;
+}

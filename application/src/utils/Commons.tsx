@@ -55,7 +55,7 @@ export function useUser(): { connectedUser: any; auth: boolean; userLoading: boo
 
 export async function isConnected(): Promise<boolean> {
     const token = getFromLocalStorage('token');
-    try  {
+    try {
         const response = await axios({
             method: 'get',
             url: API_ROUTES.IS_CONNECTED,
@@ -82,17 +82,8 @@ export async function getUser(id: string | null): Promise<any> {
         return null;
     }
     try {
-        const response = await axios({
-            method: 'GET',
-            url: `${API_ROUTES.USER}/byId`,
-            data: {
-                userId: id,
-            },
-        });
-        const user = response.data;
-        // eslint-disable-next-line no-underscore-dangle
-        user.id = user._id;
-        return user;
+        const response = await axios.get(API_ROUTES.USER + `/${id}`);
+        return response.data;
     } catch (err) {
         console.error(err);
         return null;
