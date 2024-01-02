@@ -32,13 +32,8 @@ function App() {
     }
 
     useEffect(() => {
-        getConnected().then(r => {
-            // @ts-ignore
-            if(r) {
-                console.log('isConnected 2');
-            } else {
-                console.log('isNotConnected 2');
-            }
+        getConnected().then((connected) => {
+
         });
     }, []);
 

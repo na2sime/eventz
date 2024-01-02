@@ -17,7 +17,7 @@ export default function LoginForm({updateMode}): JSX.Element {
     const {connectedUser, auth, userLoading} = useUser();
     useEffect(() => {
         if (connectedUser || auth) {
-            history.push('/');
+            router.push('/home');
         }
     });
 
@@ -29,7 +29,6 @@ export default function LoginForm({updateMode}): JSX.Element {
     }
 
     const signIn = async () => {
-        console.log('signIn');
         if (!email || !password) {
             sendNotification('Veuillez remplir tous les champs', 3000);
             return;
@@ -41,7 +40,6 @@ export default function LoginForm({updateMode}): JSX.Element {
             return;
         }
         try {
-            console.log('signIn try');
             setIsLoading(true);
             const response = await axios({
                 method: 'post',
@@ -51,19 +49,15 @@ export default function LoginForm({updateMode}): JSX.Element {
                     password,
                 },
             });
-            console.log('signIn response', response);
             if (!response?.data?.token) {
                 sendNotification('Une erreur est survenue', 3000);
                 console.log('Something went wrong during signing in: ', response);
             } else {
-                console.log('signIn response.data', response.data);
-                console.log("connected");
                 storeInLocalStorage(response.data.token, response.data.userId);
-                router.push('/home', 'root', 'replace');
+                router.push('/profile');
             }
         } catch (err: any) {
             sendNotification('Une erreur est survenue', 3000);
-            console.log('Some error occured during signing in: ', err);
         } finally {
             setIsLoading(false);
         }
