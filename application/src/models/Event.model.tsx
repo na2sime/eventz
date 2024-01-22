@@ -8,6 +8,6 @@ export default interface Event {
     date: Date;
     location: string;
     maxPlaces: number;
-    owner: User;
-    members: User[];
+    owner: string;
+    members: string[];
 }
