@@ -4,14 +4,15 @@ import {addCircleOutline, homeOutline, personCircleOutline, ticketOutline} from 
 import React from "react";
 import Tab1 from "./pages/home/Tab1";
 import Account from "./pages/account/Account";
+import Post from "./pages/post/Post";
 
 const MainTabs: React.FC = () => {
     return (
         <IonTabs>
-            <IonRouterOutlet placeholder={undefined}>
+            <IonRouterOutlet>
                 <Redirect exact path="/" to="/home"/>
                 <Route path="/home" render={() => <Tab1/>} exact={true}/>
-                <Route path="/publish" render={() => <Tab1/>} exact={true}/>
+                <Route path="/publish" render={() => <Post/>} exact={true}/>
                 <Route path="/profile" render={() => <Account/>} exact={true}/>
                 <Route path="/ticket" render={() => <Tab1/>} exact={true}/>
             </IonRouterOutlet>
